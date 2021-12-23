@@ -1,16 +1,17 @@
 ---
+- name: Add Moby Apt key
+  become: true
+  ansible.builtin.apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+
 - name: Create Moby sources file
   become: true
   ansible.builtin.apt_repository:
     repo: deb https://packages.microsoft.com/ubuntu/20.04/prod focal main
     state: present
     filename: 'microsoft-moby'
-
-- name: Add Moby Apt key
-  become: true
-  ansible.builtin.apt_key:
-    url: https://packages.microsoft.com/keys/microsoft.asc
-    state: present
+    update_cache: true
 
 - name: Update Apt Index
   become: true
