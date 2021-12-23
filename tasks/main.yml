@@ -24,11 +24,13 @@
     state: present
 
 - name: Ensure docker group exists
+  become: true
   ansible.builtin.group:
     name: docker
     state: present
 
 - name: adding existing user '{{ local_user_username }}' to group docker
+  become: true
   user:
     name: '{{ local_user_username }}'
     groups: docker
