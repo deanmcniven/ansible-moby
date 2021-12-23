@@ -45,3 +45,12 @@
     group: root
     mode: 755
 
+- name: Add docker-compose alias
+  become: false
+  lineinfile:
+    path: "{{ local_user_homedir }}/.bash_aliases"
+    regexp: '^alias docker-compose=.*$'
+    line: "alias docker-compose='docker compose'"
+    state: present
+    create: yes
+
