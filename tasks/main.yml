@@ -36,3 +36,12 @@
     groups: docker
     append: yes
 
+- name: Install init script for Moby
+  become: true
+  get_url:
+    url: https://raw.githubusercontent.com/moby/moby/master/contrib/init/sysvinit-debian/docker
+    dest: /etc/init.d/docker
+    owner: root
+    group: root
+    mode: 755
+
