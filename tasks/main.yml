@@ -8,7 +8,7 @@
 - name: Create Moby sources file
   become: true
   ansible.builtin.apt_repository:
-    repo: deb https://packages.microsoft.com/ubuntu/20.04/prod focal main
+    repo: "deb https://packages.microsoft.com/ubuntu/{{ansible_distribution_version}}/prod {{ansible_distribution_release}} main"
     state: present
     filename: 'microsoft-moby'
     update_cache: true
