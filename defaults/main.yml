@@ -1,1 +1,5 @@
 ---
+moby_enable_userns_remap: false
+moby_userns_id: 500000
+moby_userns_name: dockersubuser
+

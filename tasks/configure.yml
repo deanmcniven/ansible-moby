@@ -1,0 +1,36 @@
+---
+# The additonal config in this file only executes if
+# `moby_enable_userns_remap` is enabled
+
+- name: Create Docker namespaced group
+  become: true
+  group:
+    name: '{{moby_userns_name}}'
+    system: true
+  when: moby_enable_userns_remap
+
+- name: Create Docker namespaced user
+  become: true
+  user:
+    create_home: false
+    name: '{{moby_userns_name}}'
+    group: '{{moby_userns_name}}'
+    system: true
+  when: moby_enable_userns_remap
+
+- name: Create subuid for Docker namespaced user
+  become: true
+  lineinfile:
+    path: /etc/subuid
+    regexp: '^{{moby_userns_name}}:'
+    line: "{{moby_userns_name}}:{{moby_userns_id}}:65536"
+  when: moby_enable_userns_remap
+
+- name: Create subgid for Docker namespaced user
+  become: true
+  lineinfile:
+    path: /etc/subgid
+    regexp: '^{{moby_userns_name}}:'
+    line: "{{moby_userns_name}}:{{moby_userns_id}}:65536"
+  when: moby_enable_userns_remap
+
